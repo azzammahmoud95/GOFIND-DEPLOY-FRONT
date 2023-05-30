@@ -36,7 +36,8 @@ export default function UserProfile() {
     phone: "",
     gender: "",
   });
- const navigate =  useNavigate()
+  const navigate = useNavigate();
+
   const handleEdit = () => {
     setUpdatedProfile(userProfile);
     setOpen(true);
@@ -68,13 +69,24 @@ export default function UserProfile() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/user/${userId}`)
       .then((response) => {
         setUserProfile(response.data.message);
-        
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [userId,updatedProfile]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_NODE_ENV}/api/user/${userId}`)
+  //     .then((response) => {
+  //       setUserProfile(response.data.message);
+
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [updatedProfile]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -88,7 +100,7 @@ export default function UserProfile() {
     axios
       .patch(`${process.env.REACT_APP_NODE_ENV}/api/user/${userId}`, updatedProfile)
       .then((response) => {
-        setUpdatedProfile(response.data)
+        setUpdatedProfile(response.data);
         handleClose();
       })
       .catch((error) => {
@@ -102,68 +114,71 @@ export default function UserProfile() {
         User <span style={{ color: "#28A745" }}>Profile</span>
       </h1>
       <div className={styles.avatarAndInfoWrapper}>
-      <Avatar sizes="10" sx={{ bgcolor: "#28A745", width: 55, height: 55 }}>
-        {Cookies.get("username").charAt(0).toUpperCase()}
-      </Avatar>
-      <div className={styles.infoWrapper}>
-        <div className={styles.userInfoPart}>
-          <h3>
-            <strong>User Id:</strong> {userIDD}
-          </h3>
-          <h3>
-            <strong>Email:</strong> {userProfile.email}
-          </h3>
-          <h3>
-            <strong>Date Of Birth:</strong> {userProfile.dateOfBirth}
-          </h3>
-          
+        <Avatar sizes="10" sx={{ bgcolor: "#28A745", width: 55, height: 55 }}>
+          {Cookies.get("username").charAt(0).toUpperCase()}
+        </Avatar>
+        <div className={styles.infoWrapper}>
+          <div className={styles.userInfoPart}>
+            <h3>
+              <strong>User Id:</strong> {userIDD}
+            </h3>
+            <h3>
+              <strong>Email:</strong> {userProfile.email}
+            </h3>
+            <h3>
+              <strong>Date Of Birth:</strong> {userProfile.dateOfBirth}
+            </h3>
+          </div>
+          <div className={styles.userInfoPart}>
+            <h3>
+              <strong>Username:</strong> {userProfile.username}
+            </h3>
+            <h3>
+              <strong>Phone:</strong> {userProfile.phone}
+            </h3>
+            <h3>
+              <strong>Gender:</strong> {userProfile.gender}
+            </h3>
+          </div>
+          <div className={styles.buttonWrapper}>
+            <Button
+              style={{
+                border: "2px solid #28A745",
+                color: "#28A745",
+                borderRadius: "9px",
+                width: "150px",
+                textTransform: "capitalize",
+                fontSize: "16px",
+                marginTop: "10px",
+              }}
+              onClick={handleEdit}
+            >
+              Edit Profile
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "#28A745",
+                borderRadius: "9px",
+                width: "150px",
+                color: "white",
+                textTransform: "capitalize",
+                fontSize: "16px",
+                marginTop: "10px",
+              }}
+              onClick={() => navigate(-1)}
+            >
+              Go to home
+            </Button>
+          </div>
         </div>
-        <div className={styles.userInfoPart}>
-          <h3>
-            <strong>Username:</strong> {userProfile.username}
-          </h3>
-          <h3>
-            <strong>Phone:</strong> {userProfile.phone}
-          </h3>
-          <h3>
-            <strong>Gender:</strong> {userProfile.gender}
-          </h3>
-         
-        </div>
-        <div className={styles.buttonWrapper}>
-        <Button
-                  style={{
-                    border: "2px solid #28A745",
-                    color: "#28A745",
-                    borderRadius: "9px",
-                    width: "150px",
-                    
-                    textTransform: "capitalize",
-                    fontSize:'16px',
-                    marginTop:'10px'
-                  }}
-                  onClick={handleEdit}
-                >
-                  Edit Profile
-                </Button>
-                <Button style={{
-                    backgroundColor: "#28A745",
-                    borderRadius: "9px",
-                    width: "150px",
-                    color:'white',
-                    textTransform: "capitalize",
-                    fontSize:'16px',
-                    marginTop:'10px'
-                  }}
-                  onClick={() => navigate(-1)}>
-                    Go to home
-                </Button>
-                </div>
       </div>
-      </div>    
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
-          style={{ alignSelf: "center", fontWeight: "600", color: "#394452" }}
+          style={{
+            alignSelf: "center",
+            fontWeight: "600",
+            color: "#394452",
+          }}
         >
           Edit <span style={{ color: "#28A745" }}>Profile</span>
         </DialogTitle>
@@ -306,3 +321,4 @@ export default function UserProfile() {
     </div>
   );
 }
+

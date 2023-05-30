@@ -16,7 +16,6 @@ export default function Footer() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
       .then((response) => {
         setItemCount(response.data.message);
-        console.log(response.data.message);
       })
       .catch((error) => {
         console.log(error);

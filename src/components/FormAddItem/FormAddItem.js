@@ -42,7 +42,6 @@ export default function FormAddItem() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then((response) => {
         setLocations(response.data.message);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -54,7 +53,6 @@ export default function FormAddItem() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
         setCategories(response.data.message);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -78,11 +76,9 @@ export default function FormAddItem() {
     formData.append("locationId", selectedLocation);
     formData.append("dateFound", dateFound);
     formData.append("description", description);
-    console.log(formData);
     axios
       .post(`${process.env.REACT_APP_NODE_ENV}/api/item/additem`, formData)
       .then((response) => {
-        console.log(response);
         setTitle("");
         setImage(null);
         setSelectedCategories("");

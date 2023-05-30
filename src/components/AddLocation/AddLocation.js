@@ -33,7 +33,6 @@ export default function AddLocation() {
     axios.post(`${process.env.REACT_APP_NODE_ENV}/api/location`, data)
       .then(response => {
         // Handle success response
-        console.log(response);
 
         // >> RESET THE INPUTS
         setFormValues({

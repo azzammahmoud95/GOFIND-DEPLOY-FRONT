@@ -89,7 +89,6 @@ export default function Signup() {
 
     axios.post(`${process.env.REACT_APP_NODE_ENV}/api/user/register`, formData)
   .then(response => {
-    console.log(response);
     navigate('/login');
   })
   .catch(err => {

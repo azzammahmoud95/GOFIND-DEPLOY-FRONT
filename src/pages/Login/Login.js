@@ -70,7 +70,6 @@ export default function Login() {
 
     axios.post(`${process.env.REACT_APP_NODE_ENV}/api/user/login`, formData)
   .then(response => {
-    console.log(response);
     const authToken = response.data.token;
     // setToken(authToken);
     // setIsLoggedIn(true)
@@ -83,7 +82,6 @@ export default function Login() {
           Cookies.set("username", response.data.username, { expires });
           Cookies.set("phone", response.data.phone, { expires });
           Cookies.set("userId", response.data._id, { expires });
-          console.log(Cookies.get("isAdmin"));
     }
 
     if(response.data.isAdmin === true){

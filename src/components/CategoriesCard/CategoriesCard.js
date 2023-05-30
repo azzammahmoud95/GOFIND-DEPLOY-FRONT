@@ -87,7 +87,6 @@ const handleDelete = (id) => {
     .delete(`${process.env.REACT_APP_NODE_ENV}/api/category/${id}`)
     .then((response) => {
       // If the deletion was successful, update the list of Categories
-      console.log(response.data);
       setCategories(categories.filter((categories) => categories.id !== id)); // Change location._id to location.id
     })
     .catch((error) => {

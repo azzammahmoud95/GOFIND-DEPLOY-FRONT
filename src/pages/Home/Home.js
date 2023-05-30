@@ -47,7 +47,6 @@ export default function Home() {
         let locations = response.data.message;
         setIsLoading(false);
         setLocations(locations);
-        console.log(locations);
       })
       .catch((error) => {
         console.log(error);
@@ -61,7 +60,6 @@ export default function Home() {
         let categories = response.data.message;
         setIsLoading(false);
         setCategories(categories);
-        console.log(categories);
       })
       .catch((error) => {
         console.log(error);
@@ -83,7 +81,6 @@ export default function Home() {
   const navigate = useNavigate();
   const username = Cookies.get("username");
   const isAdminCookies = Cookies.get("isAdmin");
-console.log("Hello",isAdminCookies);
   const handleAvatarClose = () => {
     setAnchorEl(null);
   };

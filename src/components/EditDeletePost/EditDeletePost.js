@@ -64,7 +64,6 @@ export default function EditDeletePost() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
       .then((response) => {
         setItem(response.data.message);
-        console.log(response.data.message);
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +75,6 @@ export default function EditDeletePost() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then((response) => {
         setLocations(response.data.message);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -88,7 +86,6 @@ export default function EditDeletePost() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
         setCategories(response.data.message);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -98,14 +95,12 @@ export default function EditDeletePost() {
     axios
       .put(`${process.env.REACT_APP_NODE_ENV}/api/item/isfound/${itemId}`, { isFound: true })
       .then((response) => {
-        console.log(response)
         // Update the item's isFound property to true in the local state
         setItem((prevItems) =>
           prevItems.map((item) =>
             item._id === itemId ? { ...item, isFound: true } : item
           )
         );
-        console.log('Item soft deleted successfully.');
       })
       .catch((error) => {
         console.log(error);
