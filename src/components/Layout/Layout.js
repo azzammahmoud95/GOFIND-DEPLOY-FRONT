@@ -1,7 +1,6 @@
 import React from "react";
 import SidebarDashboard from "../SidebarDashboard/SidebarDashboard.js";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard.js";
-import { Container } from "@mui/material";
 import { Stack } from "@mui/system";
 
 export default function Layout({ children, title }) {

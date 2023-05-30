@@ -14,6 +14,7 @@ import {TextField, FormControl, MenuItem, Stack, Select,InputLabel} from '@mui/m
 import styles from './EditDeletePost.module.css'
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import Loader from '../Loader/Loader';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -48,6 +49,7 @@ export default function EditDeletePost() {
   const [selectedCategories, setSelectedCategories] = useState('')
   const [ locations, setLocations] = useState([])
   const [ selectedLocation, setSelectedLocation] = useState('')
+  const [ isLoading, setIsLoading] = useState(true);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -64,6 +66,7 @@ export default function EditDeletePost() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
       .then((response) => {
         setItem(response.data.message);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error);
@@ -126,7 +129,8 @@ export default function EditDeletePost() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {item.filter(item => item.isFound === false  && item.userId._id === Cookies.get('userId')).map((item) => (
+        {isLoading ? <Loader /> :
+        item.filter(item => item.isFound === false  && item.userId._id === Cookies.get('userId')).map((item) => (
           <Box
             key={item._id}
             sx={{

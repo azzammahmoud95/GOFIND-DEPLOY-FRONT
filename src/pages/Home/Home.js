@@ -170,7 +170,7 @@ export default function Home() {
         
       </header>
 {/* SearchBAr Start*/}
-<section className={styles.searchBarWrapper}>
+    <section className={styles.searchBarWrapper}>
   
       <div
             style={{
@@ -231,7 +231,7 @@ export default function Home() {
               />
             </div>
           </div>
-          </section>
+      </section>
           {/* SearchBAr end*/}
       
       <section className={styles.cardWrapper}>

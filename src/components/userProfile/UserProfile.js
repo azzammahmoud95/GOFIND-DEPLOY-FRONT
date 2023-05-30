@@ -17,11 +17,14 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import styles from "./UserProfile.module.css";
 import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 export default function UserProfile() {
   const userId = Cookies.get("userId");
   const [userIDD, setUserIDD] = useState(0);
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [userProfile, setUserProfile] = useState({
     username: "",
     email: "",
@@ -69,6 +72,7 @@ export default function UserProfile() {
       .get(`${process.env.REACT_APP_NODE_ENV}/api/user/${userId}`)
       .then((response) => {
         setUserProfile(response.data.message);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error);
@@ -117,6 +121,8 @@ export default function UserProfile() {
         <Avatar sizes="10" sx={{ bgcolor: "#28A745", width: 55, height: 55 }}>
           {Cookies.get("username").charAt(0).toUpperCase()}
         </Avatar>
+        {isLoading ? <Loader /> :
+        
         <div className={styles.infoWrapper}>
           <div className={styles.userInfoPart}>
             <h3>
@@ -170,7 +176,9 @@ export default function UserProfile() {
               Go to home
             </Button>
           </div>
+          
         </div>
+        }
       </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
