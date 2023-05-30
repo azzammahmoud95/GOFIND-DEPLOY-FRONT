@@ -191,7 +191,7 @@ export default function EditDeletePost() {
             className={styles.cardContainer}
           >
               <img
-                  src={`http://localhost:5000/${item.image}`}
+                  src={`${process.env.REACT_APP_NODE_ENV}/${item.image}`}
                   alt="Image"
                   width={200}
                   height={100}
