@@ -1,0 +1,39 @@
+/* .Header{
+    background-color: #222;
+    display: flex;
+    flex-wrap: nowrap;
+    column-gap: 3px;
+    justify-content: space-around;    
+}
+.headerWrapper{
+    display: flex;
+   
+    align-items: center;  
+    padding-top: 0.6%;
+    padding-bottom: 0.4%;
+    background-color: #222;
+    
+    justify-self: center;
+}
+.logo{
+    width: 10rem;
+}
+@media (max-width:766px) {
+    .headerWrapper{
+        width: 100%;
+    }
+    .logo{
+        width: 20%;
+    }
+}
+@media (max-width:403px) {
+    .headerWrapper{
+        width: 98%;
+
+    }
+    
+    .addItem{
+        padding: 5px 1px !important;
+    }
+}
+ */

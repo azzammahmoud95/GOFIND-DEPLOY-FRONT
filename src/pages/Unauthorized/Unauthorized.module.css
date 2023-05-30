@@ -1,0 +1,28 @@
+.ErrorPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+    height: 100vh;
+    width: 100vw;
+    
+}
+.AllElements{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+
+}
+
+@media (max-width: 1280px) {
+    .AllElements{
+        width: 40vw;
+    }
+}
+@media (max-width: 1024px) {
+    .AllElements {
+        width: 100vw;
+    }
+}

@@ -1,0 +1,167 @@
+.Header{
+    background-color: #222;
+    display: flex;
+    flex-wrap: nowrap;
+    column-gap: 3px;
+    justify-content: space-around;
+    /* border: 3px solid blue; */
+    z-index: 100;
+    
+    position: sticky;
+    top: 0;
+}
+.headerWrapper{
+    display: flex;
+    justify-content: space-between;
+
+    /* border: 2px solid red; */
+    align-items: center ;  /* very important*/
+    padding-top: 0.6%;
+    padding-bottom: 0.4%;
+    background-color: #222;
+    width: 80%;
+    /* position: fixed; */
+   
+    z-index: 100;   
+}
+.aboutLink{
+    color: #ebede9;
+    font-weight: 900;
+    margin-right: 30px;
+    font-size: 18px;
+}
+
+.aboutLink:hover{
+    color: hsl(134, 58%, 56%);
+    cursor: pointer;
+    
+}
+.cardImg{
+width: 100%;
+height: 100%;
+
+}
+.imageHolder{
+    width: 350px;
+height: 200px;
+}
+.logo{
+    width: 10rem;
+}
+.navBar{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+
+.card{
+    display: flex;
+    width: 60%;
+    align-self: center;
+    flex-wrap: nowrap;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+.infoWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-left: 20px;
+}
+
+.cardWrapper{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 80vh;
+    /* align-items: center; */
+}
+.buttonWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+}
+.phoneButton{
+    background-color: #28A745;
+    color: whitesmoke;
+    width: 100px;
+    padding: 8px;
+    border-radius: 10px;
+    align-items: center;
+    font-weight: 700;
+    
+}
+.searchBarWrapper{
+    width: 100%;
+    height: 300px;
+    /* border: 2px solid deeppink; */
+    display: flex;
+   
+    
+
+    background-image: url(../../assests//Illustration/wepik-export-20230530083233Qd7o.png);
+    background-size: cover;
+
+}
+
+.emailButton{
+    border: 2px solid #28A745;
+    padding: 7px;
+    width: 100px;
+    color: #28A745;
+    border-radius: 10px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+/* @media (max-width:1500px) {
+    .headerWrapper{
+        width: 100%;
+    }
+    .logo{
+        width: 20%;
+    }
+    .card{
+        flex-wrap: nowrap;
+        width: 100%;
+        align-self: center;
+    }
+    .imageHolder{
+        width: 40%;
+    }
+    .infoWrapper{
+        width:70%;
+    }
+} */
+@media (max-width:440px) {
+    .headerWrapper{
+        width: 100%;
+        justify-content: space-between;
+
+    }
+    .cardWrapper{
+        display: flex;   
+        flex-direction: column;
+    }
+    
+    .card{
+        width: 100%;
+        margin-top: 9px;
+    }
+    .addItem{
+        padding: 3px 1px !important;
+        width: 10px;
+    }
+    .aboutLink{
+        margin-right: 10px;
+    }
+    .logo{
+        width: 100px;
+    }
+}

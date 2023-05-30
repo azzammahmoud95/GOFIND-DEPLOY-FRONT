@@ -1,0 +1,46 @@
+.Footer{
+    background-color: #222;
+    bottom: 0 !important;
+    position: static; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.LogoAndSocial{
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: space-between;
+    width: 75%;
+    /* border: 2px solid red; */
+    margin: 30px;
+    /* padding: 20px; */
+}
+.TextsocialMediaWrapper{
+    color: #ebede9;
+    /* border: 2px solid blue; */
+}
+.IconsWrapper{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+.socialIcon:hover{
+    color: hsl(134, 58%, 56%);
+    cursor: pointer;
+}
+
+.copyRightWrapper{
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: space-between;
+    width: 80%;
+    color: #ebede9;
+    margin: 12px;
+    margin-right: 20px;
+}
+.iconColor{
+    color: #ebede9;
+}

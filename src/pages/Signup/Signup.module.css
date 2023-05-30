@@ -1,0 +1,67 @@
+.loginPage {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #fafafa;
+  }
+.topSide {
+    height: 186px;
+    position: relative;
+  }
+
+.formTitle{
+    align-self: center;
+    font-size: 1.7rem;
+    padding: 0;
+    font-weight: 700;
+
+}
+.logoStyle{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+.CenterSide{
+    width: 100%;
+    position: relative;
+    background-color: #28A745;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.formStyle{
+    width: calc(100% - 100px);
+    max-width: 480px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    column-gap: 20px;
+    margin-top: 20px;
+    /* margin-right: 5px;
+    margin-left: 5px; */
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+.linkTo:hover{
+    text-decoration: underline;
+}
+@media (max-width:460px) {
+    .formStyle{
+        width: 90%;
+    }
+}
