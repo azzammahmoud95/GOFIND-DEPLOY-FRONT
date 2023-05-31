@@ -171,7 +171,8 @@ export default function Home() {
       </header>
 {/* SearchBAr Start*/}
     <section className={styles.searchBarWrapper}>
-  
+  <div style={{width:"100%", display:'flex',flexDirection:'column',alignItems:'center'}}>
+    <h3   className={styles.titleAboveSearchBar}> <span className={styles.quotationColor}>&ldquo;</span> Your ultimate destination for finding <span className={styles.quotationColor}>lost items</span> with ease. <span className={styles.quotationColor}>&rdquo;</span></h3>
       <div
             style={{
               width: "100%",
@@ -207,7 +208,7 @@ export default function Home() {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  placeholder={"Welcome to gofind here you can find you losts"}
+                  placeholder={"Search your lost items..."}
                   color="success"
                 />
               )}
@@ -230,6 +231,7 @@ export default function Home() {
                 }}
               />
             </div>
+          </div>
           </div>
       </section>
           {/* SearchBAr end*/}
