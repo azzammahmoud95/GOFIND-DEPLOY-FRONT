@@ -111,6 +111,7 @@ function SidebarDashboard() {
           button
           selected={window.location.pathname === "/"}
           onClick={() => navigate("/")}
+          style={{marginBottom:'-10px'}}
         >
           <ListItemIcon>
             <HomeIcon />
