@@ -17,6 +17,7 @@ import {
   Logout as LogoutIcon,
   Category as CategoryIcon,
 } from "@mui/icons-material";
+import HomeIcon from '@mui/icons-material/Home';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box } from "@mui/system";
 import Logo from "../../assests/Elements/LogonameBlackGreen.svg";
@@ -105,12 +106,23 @@ function SidebarDashboard() {
           </ListItem>
         ))}
       </Box>
+      
       <Box sx={{ marginX: "14px" }}>
-        
+      <ListItem
+          button
+          selected={window.location.pathname === "/"}
+          onClick={handleDrawerToggle}
+          style={{marginBottom:'-15px'}}
+        >
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText onClick={handleLogout}>Home</ListItemText>
+        </ListItem>
         <ListItem
           button
-          selected={window.location.pathname === "/logout"}
-          onClick={handleDrawerToggle}
+          selected={window.location.pathname === "/"}
+          onClick={navigate('/')}
         >
           <ListItemIcon>
             <LogoutIcon />
