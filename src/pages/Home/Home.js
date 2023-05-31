@@ -252,7 +252,6 @@ export default function Home() {
               backgroundColor:
                 selectedCategory === null ? "#28A745" : "transparent",
               borderRadius: "10px",
-              width: "80px",
               color: selectedCategory === null ? "white" : "#28A745",
               marginLeft: "10px",
               textTransform: "capitalize",
@@ -270,7 +269,6 @@ export default function Home() {
                 backgroundColor:
                   selectedCategory === category ? "#28A745" : "transparent",
                 borderRadius: "10px",
-                // width: "80px",
                 color: selectedCategory === category ? "white" : "#28A745",
                 marginLeft: "10px",
                 textTransform: "capitalize",
