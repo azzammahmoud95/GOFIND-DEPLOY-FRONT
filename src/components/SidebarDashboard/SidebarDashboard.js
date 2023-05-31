@@ -106,29 +106,26 @@ function SidebarDashboard() {
           </ListItem>
         ))}
       </Box>
-      
       <Box sx={{ marginX: "14px" }}>
       <ListItem
           button
           selected={window.location.pathname === "/"}
-          onClick={handleDrawerToggle}
-          style={{marginBottom:'-15px'}}
+          onClick={() => navigate("/")}
         >
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText onClick={handleLogout}>Home</ListItemText>
+          <ListItemText onClick={() => navigate("/")}>Home</ListItemText>
         </ListItem>
         <ListItem
           button
-          selected={window.location.pathname === "/"}
-          onClick={handleLogout}
+          selected={window.location.pathname === "/logout"}
+          onClick={handleDrawerToggle}
         >
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText 
-          onClick={navigate('/')}>Logout</ListItemText>
+          <ListItemText onClick={handleLogout}>Logout</ListItemText>
         </ListItem>
       </Box>
     </List>
