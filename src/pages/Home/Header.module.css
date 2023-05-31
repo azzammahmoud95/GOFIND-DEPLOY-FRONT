@@ -13,15 +13,11 @@
 .headerWrapper{
     display: flex;
     justify-content: space-between;
-
-    /* border: 2px solid red; */
     align-items: center ;  /* very important*/
     padding-top: 0.6%;
     padding-bottom: 0.4%;
     background-color: #222;
-    width: 80%;
-    /* position: fixed; */
-   
+    width: 80%;   
     z-index: 100;   
 }
 .aboutLink{
@@ -30,20 +26,17 @@
     margin-right: 30px;
     font-size: 18px;
 }
-
 .aboutLink:hover{
     color: hsl(134, 58%, 56%);
-    cursor: pointer;
-    
+    cursor: pointer;   
 }
 .cardImg{
 width: 100%;
 height: 100%;
-
 }
 .imageHolder{
     width: 350px;
-height: 200px;
+    height: 200px;
 }
 .logo{
     width: 10rem;
@@ -87,7 +80,6 @@ height: 200px;
     flex-direction: column;
     height: fit-content;
     min-height: 80vh;
-    /* align-items: center; */
 }
 .buttonWrapper{
     display: flex;
@@ -109,7 +101,6 @@ height: 200px;
 .searchBarWrapper{
     width: 100%;
     height: 300px;
-    /* border: 2px solid deeppink; */
     display: flex; 
     align-items: center;
     justify-content: center;
@@ -138,25 +129,6 @@ height: 200px;
     font-weight: 700;
     margin-left: 10px;
 }
-/* @media (max-width:1500px) {
-    .headerWrapper{
-        width: 100%;
-    }
-    .logo{
-        width: 20%;
-    }
-    .card{
-        flex-wrap: nowrap;
-        width: 100%;
-        align-self: center;
-    }
-    .imageHolder{
-        width: 40%;
-    }
-    .infoWrapper{
-        width:70%;
-    }
-} */
 @media (max-width:440px) {
     .headerWrapper{
         width: 100%;
