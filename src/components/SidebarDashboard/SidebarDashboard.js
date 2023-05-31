@@ -122,12 +122,13 @@ function SidebarDashboard() {
         <ListItem
           button
           selected={window.location.pathname === "/"}
-          onClick={navigate('/')}
+          onClick={handleLogout}
         >
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText onClick={handleLogout}>Logout</ListItemText>
+          <ListItemText 
+          onClick={navigate('/')}>Logout</ListItemText>
         </ListItem>
       </Box>
     </List>
