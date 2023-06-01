@@ -113,6 +113,7 @@ export default function Home() {
             alt="logo white"
             // style={{ marginRight: "20px" }}
             className={styles.logo}
+            onClick={() => navigate('/')}
           />
         <nav className={styles.navBar}>
           <Link to="/about" className={styles.aboutLink}>About</Link>

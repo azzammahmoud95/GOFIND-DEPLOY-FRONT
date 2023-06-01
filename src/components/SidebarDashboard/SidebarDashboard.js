@@ -76,6 +76,7 @@ function SidebarDashboard() {
           src={Logo}
           alt="logo"
           style={{ height: "50px", marginBottom: "36px",marginLeft:'50px' }}
+          onClick={() => navigate('/')}
         />
         <Typography mt={2} color="GrayText" paddingX="16px" paddingY="8px">
           User Panel

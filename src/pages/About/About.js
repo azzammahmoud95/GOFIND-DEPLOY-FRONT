@@ -46,6 +46,7 @@ export default function About() {
         alt="logo white"
         // style={{ marginRight: "20px" }}
         className={styles.logo}
+        onClick={() => navigate("/")}
       />
     <nav className={styles.navBar}>
       <Link to="/" className={styles.aboutLink}>Home</Link>

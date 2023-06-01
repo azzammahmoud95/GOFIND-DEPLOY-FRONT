@@ -41,6 +41,9 @@ height: 100%;
 .logo{
     width: 10rem;
 }
+.logo:hover{
+    cursor: pointer;
+}
 .navBar{
     display: flex;
     flex-wrap: nowrap;
