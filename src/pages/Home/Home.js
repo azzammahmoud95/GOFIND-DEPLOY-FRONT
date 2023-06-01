@@ -364,7 +364,7 @@ export default function Home() {
                 <div className={styles.imageHolder}>
                   {" "}
                   <img
-                    src={`${process.env.REACT_APP_NODE_ENV}/${item.image}`}
+                    src={item.image}
                     alt="card pics"
                     // width={350}
                     // height={200}
