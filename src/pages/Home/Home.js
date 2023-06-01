@@ -373,7 +373,7 @@ export default function Home() {
                 </div>
                 <div className={styles.infoWrapper}>
                   <h2>{item.title}</h2>
-                  <h3>Founded by: {item.userId.username}</h3>
+                  <h3>Posted by: {item.userId.username}</h3>
                   <h4>{item.location}</h4>
                   <h4>{item.category}</h4>
                   <p>{item.description}</p>
