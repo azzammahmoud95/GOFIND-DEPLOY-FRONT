@@ -18,7 +18,7 @@ export default function AdminsDash() {
             <img
               src={AdminImg}
               alt="adminImg"
-              width="450"
+              width="430"
               style={{ marginTop: "100px" }}
             />
           </Stack>
