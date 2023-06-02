@@ -22,13 +22,12 @@ export default function AllRoutes() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route path="/about" element={<About /> } />
+          
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
-
-            <Route path="*" element={<ErrorPage />} />
-            <Route path="/profile" element={<AddListItems />} />
-            <Route path="/about" element={<About /> } />
-
+              <Route path="/profile" element={<AddListItems />} />
             <Route element={<PrivateDashboard />}>
               <Route path="/dashboard" element={<HomeDash />} />
               <Route path="/dashboard/categories"  element={<CategoriesDash />}/>

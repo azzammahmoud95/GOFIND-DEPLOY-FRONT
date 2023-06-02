@@ -144,7 +144,7 @@ export default function EditDeletePost() {
             className={styles.cardContainer}
           >
               <img
-                  src={`${process.env.REACT_APP_NODE_ENV}/${item.image}`}
+                  src={item.image}
                   alt="Image"
                   width={200}
                   height={100}
@@ -195,7 +195,7 @@ export default function EditDeletePost() {
             className={styles.cardContainer}
           >
               <img
-                  src={`${process.env.REACT_APP_NODE_ENV}/${item.image}`}
+                  src={item.image}
                   alt="Image"
                   width={200}
                   height={100}

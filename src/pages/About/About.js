@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styles from '../Home/Header.module.css'
 import FormAddItem from '../../components/FormAddItem/FormAddItem'
-import { Avatar,MenuItem,Menu } from '@mui/material'
+import { Avatar,MenuItem,Menu, Button } from '@mui/material'
 import logoWhiteGreen from '../../assests/Elements/LogoWhiteGreen.svg'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -50,55 +50,107 @@ export default function About() {
       />
     <nav className={styles.navBar}>
       <Link to="/" className={styles.aboutLink}>Home</Link>
-      <FormAddItem />
-      
       {username ? (
-        <>
-          <IconButton
-            className={styles.AvatarButton}
-            onClick={handleAvatarClick}
-          >
-            <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
-              {username.charAt(0).toUpperCase()}
-            </Avatar>
-          </IconButton>
-          <Menu
-            id="account-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleAvatarClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-          >
-            <MenuItem onClick={handleAvatarProfile}>
-              <AccountCircleIcon className={styles.MenuIcon} />
-              My Account
-            </MenuItem>
-            {isAdminCookies === "true" ? (
-                <MenuItem onClick={() => navigate('/dashboard/admins')}>
-                  <DashboardIcon className={styles.MenuIcon} />
-                  Dashboard
-                </MenuItem>
-              ): null}
-            <MenuItem onClick={handleLogout}>
-              <LogoutIcon className={styles.MenuIcon} />
-              Logout
-            </MenuItem>
-          </Menu>
-        </>
+        <FormAddItem />
       ) : (
-        <Avatar
-          className={styles.Avatar}
-          sx={{ bgcolor: "#28A745" }}
-          onClick={handleAvatarClick}
-        />
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "#28A745",
+            textTransform: "capitalize",
+            fontSize: "17px",
+            alignSelf: "center",
+            borderRadius: "10px",
+            padding: "7px 3px",
+            width: "110px",
+            color: "white",
+            border: "1px solid whitesmoke",
+            fontWeight: "500",
+          }}
+          className={styles.addItem}
+          onClick={() => navigate('/login')}
+        >
+          Login
+        </Button>
       )}
+      {username ? (
+            <>
+              <IconButton
+                className={styles.AvatarButton}
+                onClick={handleAvatarClick}
+              >
+                <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
+                  {username.charAt(0).toUpperCase()}
+                </Avatar>
+              </IconButton>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleAvatarClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={handleAvatarProfile}>
+                  <AccountCircleIcon className={styles.MenuIcon} />
+                  My Account
+                </MenuItem>
+                {isAdminCookies === "true" ? (
+                    <MenuItem onClick={() => navigate('/dashboard/admins')}>
+                      <DashboardIcon className={styles.MenuIcon} />
+                      Dashboard
+                    </MenuItem>
+                  ): null}
+                <MenuItem onClick={handleLogout}>
+                  <LogoutIcon className={styles.MenuIcon} />
+                  Logout
+                </MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <>
+            <IconButton
+                className={styles.AvatarButton}
+                onClick={handleAvatarClick}
+              >
+                <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
+                 
+                </Avatar>
+              </IconButton>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleAvatarClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={handleAvatarProfile} disabled>
+                  <AccountCircleIcon className={styles.MenuIcon} />
+                  My Account
+                </MenuItem>
+                {isAdminCookies === "true" ? (
+                    <MenuItem onClick={() => navigate('/dashboard/admins')}>
+                      <DashboardIcon className={styles.MenuIcon} />
+                      Dashboard
+                    </MenuItem>
+                  ): null}
+                
+              </Menu>
+            </>
+          )}
       </nav>
     </div>
     

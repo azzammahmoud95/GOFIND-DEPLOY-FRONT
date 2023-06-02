@@ -117,7 +117,29 @@ export default function Home() {
           />
         <nav className={styles.navBar}>
           <Link to="/about" className={styles.aboutLink}>About</Link>
-          <FormAddItem />
+          {username ? (
+        <FormAddItem />
+      ) : (
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "#28A745",
+            textTransform: "capitalize",
+            fontSize: "17px",
+            alignSelf: "center",
+            borderRadius: "10px",
+            padding: "7px 3px",
+            width: "110px",
+            color: "white",
+            border: "1px solid whitesmoke",
+            fontWeight: "500",
+          }}
+          className={styles.addItem}
+          onClick={() => navigate('/login')}
+        >
+          Login
+        </Button>
+      )}
           
           {username ? (
             <>
@@ -160,11 +182,42 @@ export default function Home() {
               </Menu>
             </>
           ) : (
-            <Avatar
-              className={styles.Avatar}
-              sx={{ bgcolor: "#28A745" }}
-              onClick={handleAvatarClick}
-            />
+            <>
+            <IconButton
+                className={styles.AvatarButton}
+                onClick={handleAvatarClick}
+              >
+                <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
+                 
+                </Avatar>
+              </IconButton>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleAvatarClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={handleAvatarProfile} disabled>
+                  <AccountCircleIcon className={styles.MenuIcon} />
+                  My Account
+                </MenuItem>
+                {isAdminCookies === "true" ? (
+                    <MenuItem onClick={() => navigate('/dashboard/admins')}>
+                      <DashboardIcon className={styles.MenuIcon} />
+                      Dashboard
+                    </MenuItem>
+                  ): null}
+                
+              </Menu>
+            </>
           )}
           </nav>
         </div>

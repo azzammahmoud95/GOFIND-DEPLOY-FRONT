@@ -31,6 +31,7 @@ export default function FormAddItem() {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const username = Cookies.get("username");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -185,7 +186,7 @@ export default function FormAddItem() {
                 marginRight: "3px",
               }}
             >
-              {Cookies.get("username").charAt(0).toUpperCase()}
+              {username ? username.charAt(0).toUpperCase() : "Default"}
             </Avatar>
             <TextField
               type="text"
