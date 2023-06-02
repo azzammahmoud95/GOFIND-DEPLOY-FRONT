@@ -44,6 +44,7 @@ TabPanel.propTypes = {
 export default function EditDeletePost() {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openAreYouSure, setOpenAreYouSure] = useState(false);
   const [item,setItem] = useState([])
   const [ categories, setCategories] = useState([])
   const [selectedCategories, setSelectedCategories] = useState('')
@@ -57,7 +58,9 @@ export default function EditDeletePost() {
   const handleEdit = () => {
     setOpen(true);
   };
-
+ const handleCloseAreYouSure = () =>{
+    setOpenAreYouSure(false)
+  }
   const handleClose = () => {
     setOpen(false);
   };
@@ -168,7 +171,8 @@ export default function EditDeletePost() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => handleDelete(item._id)}
+                // onClick={() => handleDelete(item._id)}
+                onClick={() => setOpenAreYouSure(true)}
                 
                 style={{marginLeft:"4px",borderRadius:'9px',backgroundColor:'#28A745',
                 textTransform: "capitalize",
@@ -323,6 +327,23 @@ export default function EditDeletePost() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
+    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Are You Sure you Want to Delete <Box display="inline" style={{color:'#28A745'}}>Post</Box></DialogTitle>     
+     
+      <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
+        <Button variant="outlined" onClick={handleCloseAreYouSure} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
+        <Button type="submit"
+         style={{ backgroundColor: "#28A745",
+          width: "120px",
+          borderRadius: '10px',
+          color:"#FFF",fontWeight:"600" }} variant="outlined"
+          onClick={() => handleDelete(item._id)}>
+          Yes
+        </Button>
+      </DialogActions>
+    
+  </Dialog>
     </Box>
   );
 }
