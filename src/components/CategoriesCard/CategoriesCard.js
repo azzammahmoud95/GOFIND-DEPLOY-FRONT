@@ -56,31 +56,31 @@ const AdminsList = () => {
 
   };
 
-//   const handleEdit = (event) => {
-//   event.preventDefault();
-//   const id = formValues.id;
-//   const data = {
-//     name: formValues.name,
-//     email: formValues.email,
-//   };
-//   axios
-//     .patch(`http://localhost:8000/api/auth/category/${id}`, data, {
-//       headers: {
-//         Authorization: "Bearer " + localStorage.getItem("access_token"),
-//       },
-//     })
-//     .then((response) => {
-//       // If the update was successful, update the list of categories and close the dialog
-//       // const updatedAdmins = updatedAdmins.map((category) =>
-//       //   category.id === id ? response.data : category
-//       // );
-//       // setCategories(updatedAdmins);
-//       handleClose();
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
+  const handleEdit = (event) => {
+  event.preventDefault();
+  const id = formValues.id;
+  const data = {
+    name: formValues.name,
+    email: formValues.email,
+  };
+  axios
+    .patch(`http://localhost:8000/api/auth/category/${id}`, data, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
+    .then((response) => {
+      // If the update was successful, update the list of categories and close the dialog
+      // const updatedAdmins = updatedAdmins.map((category) =>
+      //   category.id === id ? response.data : category
+      // );
+      // setCategories(updatedAdmins);
+      handleClose();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 const handleDelete = (id) => {
   axios
@@ -189,12 +189,12 @@ const handleDelete = (id) => {
     ))}
   </Stack>
   <Dialog open={open} onClose={handleClose}>
-    <form >
-    {/* onSubmit={handleEdit} */}
-    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Edit <Box display="inline" style={{color:'#026FC2'}}>Admin</Box></DialogTitle>     
+    <form onSubmit={handleEdit}>
+    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Edit <Box display="inline" style={{color:'#28A745'}}>Category</Box></DialogTitle>     
      <DialogContent >
         <Stack spacing={4} style={{display:"flex",alignItems:"center",flexDirection:"column",width:"400px"}}>
           <TextField
+          color="success"
             required
             sx={{marginTop:"5px"}}
             fullWidth
@@ -205,22 +205,13 @@ const handleDelete = (id) => {
               setFormValues({ ...formValues, name: event.target.value })
             }
           />
-          <TextField
-            required
-            fullWidth
-            label="Email"
-            variant="outlined"
-            value={formValues.email}
-            onChange={(event) =>
-              setFormValues({ ...formValues, email: event.target.value })
-            }
-          />
+
         </Stack>
       </DialogContent>
       <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
-        <Button variant="outlined" onClick={handleClose} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#026FC2",fontWeight:"600" }}>Cancel</Button>
+        <Button variant="outlined" onClick={handleClose} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
         <Button type="submit"
-         style={{ backgroundColor: "#026FC2",
+         style={{ backgroundColor: "#28A745",
           width: "120px",
           borderRadius: '10px',
           color:"#FFF",fontWeight:"600" }} variant="outlined">
