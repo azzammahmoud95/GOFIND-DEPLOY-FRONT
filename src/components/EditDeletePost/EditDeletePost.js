@@ -101,6 +101,7 @@ export default function EditDeletePost() {
     axios
       .put(`${process.env.REACT_APP_NODE_ENV}/api/item/isfound/${itemId}`, { isFound: true })
       .then((response) => {
+        console.log('h');
         // Update the item's isFound property to true in the local state
         setItem((prevItems) =>
           prevItems.map((item) =>
@@ -171,8 +172,8 @@ export default function EditDeletePost() {
               </Button>
               <Button
                 variant="contained"
-                // onClick={() => handleDelete(item._id)}
-                onClick={() => setOpenAreYouSure(true)}
+                onClick={() => handleDelete(item._id)}
+                // onClick={() => setOpenAreYouSure(true)}
                 
                 style={{marginLeft:"4px",borderRadius:'9px',backgroundColor:'#28A745',
                 textTransform: "capitalize",
@@ -338,7 +339,7 @@ export default function EditDeletePost() {
           width: "120px",
           borderRadius: '10px',
           color:"#FFF",fontWeight:"600" }} variant="outlined"
-          onClick={() => handleDelete(item._id)}>
+          >
           Yes
         </Button>
       </DialogActions>
