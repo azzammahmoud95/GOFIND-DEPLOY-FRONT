@@ -159,7 +159,7 @@ export default function FormAddItem() {
           style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)", padding: "20px" }}
         >
           <h2 style={{ color: "#394452", textAlign: "center" }}>
-            Post The <span style={{ color: "#28A745" }}>Founded Item</span>
+            Post The <span style={{ color: "#28A745" }}>Founded /   Losted</span> Item
           </h2>
           {successAlert && (
             <Alert
