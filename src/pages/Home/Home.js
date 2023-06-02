@@ -6,14 +6,14 @@ import logoWhiteGreen from "../../assests/Elements/LogoWhiteGreen.svg";
 import styles from "./Header.module.css";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button, Avatar } from "@mui/material";
+import { Button, Avatar, DialogActions } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem, Dialog, Box, DialogTitle } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from "@mui/material/IconButton";
@@ -30,6 +30,8 @@ export default function Home() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false)
+  const [openAreYouSure, setOpenAreYouSure] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const itemsPerPage = 10;
   const handleAvatarClick = (event) => {
@@ -39,7 +41,12 @@ export default function Home() {
   const handleAvatarProfile = () => {
     navigate("/profile");
   };
-
+  const handleCloseAreYouSure = () =>{
+    setOpenAreYouSure(false)
+  }
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
@@ -175,7 +182,7 @@ export default function Home() {
                       Dashboard
                     </MenuItem>
                   ): null}
-                <MenuItem onClick={handleLogout}>
+                <MenuItem onClick={() => setOpenAreYouSure(true)}>
                   <LogoutIcon className={styles.MenuIcon} />
                   Logout
                 </MenuItem>
@@ -475,7 +482,22 @@ export default function Home() {
           onChange={handlePageChange}
         />
       </section>
-
+      <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
+    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Are You Sure you Want to <Box display="inline" style={{color:'#28A745'}}>Logout ?</Box></DialogTitle>     
+     
+      <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
+        <Button variant="outlined" onClick={handleCloseAreYouSure} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
+        <Button type="submit"
+         style={{ backgroundColor: "#28A745",
+          width: "120px",
+          borderRadius: '10px',
+          color:"#FFF",fontWeight:"600" }} variant="outlined"
+          onClick={handleLogout}>
+          Yes
+        </Button>
+      </DialogActions>
+    
+  </Dialog>
       <Footer />
     </>
   );

@@ -4,7 +4,6 @@ import styles from "../../pages/AddListItems/AddListItems.module.css";
 import {
   Button,
   TextField,
-  Alert,
   Stack,
   FormControl,
   InputLabel,
@@ -26,7 +25,6 @@ export default function FormAddItem() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [userId, setUserId] = useState("");
-  const [successAlert, setSuccessAlert] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -119,7 +117,7 @@ export default function FormAddItem() {
       setSelectedLocation("");
       setDatefound("");
       setDescription("");
-      setSuccessAlert(true);
+      setOpen(false)
     } catch (error) {
       console.log(error);
       // Handle the error here, show an error message, etc.
@@ -161,15 +159,7 @@ export default function FormAddItem() {
           <h2 style={{ color: "#394452", textAlign: "center" }}>
             Post The <span style={{ color: "#28A745" }}>Founded /   Losted</span> Item
           </h2>
-          {successAlert && (
-            <Alert
-              color="success"
-              severity="success"
-              onClose={() => setSuccessAlert(false)}
-            >
-              Item sent successfully!
-            </Alert>
-          )}
+          
           <Stack
             display="flex"
             justifyContent="space-around"

@@ -329,7 +329,7 @@ export default function EditDeletePost() {
       </Dialog>
 
       <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
-    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Are You Sure you Want to Delete <Box display="inline" style={{color:'#28A745'}}>Post</Box></DialogTitle>     
+    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Are You Sure you Want to Delete <Box display="inline" style={{color:'#28A745'}}>Post ?</Box></DialogTitle>     
      
       <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
         <Button variant="outlined" onClick={handleCloseAreYouSure} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
