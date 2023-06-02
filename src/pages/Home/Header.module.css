@@ -107,9 +107,10 @@ height: 100%;
     display: flex; 
     align-items: center;
     justify-content: center;
-    background-image: url(../../assests/Illustration/wepik-export-20230530083233Qd7o.png);
+    background-image:  url(https://i.ibb.co/xDxNGCy/wepik-export-20230530083233-Qd7o.png),url(../../assests/Illustration/wepik-export-20230530083233Qd7o.png);  
     background-size: cover;
 }
+
 .aboutTitle{
     font-size: 40px;
     color: #EBEDE9;
