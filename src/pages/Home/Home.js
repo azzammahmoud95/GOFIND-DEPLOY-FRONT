@@ -30,7 +30,7 @@ export default function Home() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const itemsPerPage = 10;
@@ -44,9 +44,9 @@ export default function Home() {
   const handleCloseAreYouSure = () =>{
     setOpenAreYouSure(false)
   }
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)

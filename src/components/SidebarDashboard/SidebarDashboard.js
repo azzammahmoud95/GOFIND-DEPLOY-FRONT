@@ -10,6 +10,10 @@ import {
   IconButton,
   useMediaQuery,
   Typography,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Button
 } from "@mui/material";
 import {
   Person as PersonIcon,
@@ -24,6 +28,7 @@ import Logo from "../../assests/Elements/LogonameBlackGreen.svg";
 import Cookies from "js-cookie";
 function SidebarDashboard() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [ openAreYouSure, setOpenAreYouSure] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
   const navigate = useNavigate()
   const handleLogout = () => {
@@ -40,6 +45,9 @@ function SidebarDashboard() {
   const handleDrawerToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const handleCloseAreYouSure = () =>{
+    setOpenAreYouSure(false)
+  }
 
   const drawerItems = [
     {
@@ -127,7 +135,7 @@ function SidebarDashboard() {
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText onClick={handleLogout}>Logout</ListItemText>
+          <ListItemText  onClick={() => setOpenAreYouSure(true)}>Logout</ListItemText>
         </ListItem>
       </Box>
     </List>
@@ -177,6 +185,22 @@ function SidebarDashboard() {
           {drawer}
         </Box>
       )}
+      <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
+    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Are You Sure you Want to <Box display="inline" style={{color:'#28A745'}}>Logout ?</Box></DialogTitle>     
+     
+      <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
+        <Button variant="outlined" onClick={handleCloseAreYouSure} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
+        <Button type="submit"
+         style={{ backgroundColor: "#28A745",
+          width: "120px",
+          borderRadius: '10px',
+          color:"#FFF",fontWeight:"600" }} variant="outlined"
+          onClick={handleLogout} >
+          Yes
+        </Button>
+      </DialogActions>
+    
+  </Dialog>
     </>
   );
 }
