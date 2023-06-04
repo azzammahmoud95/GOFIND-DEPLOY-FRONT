@@ -114,6 +114,7 @@ export default function EditDeletePost() {
   };
   const handleEdit = (event) => {
     event.preventDefault();
+    
     const id = formValues.id;
     const data = {
       title: formValues.title,
@@ -419,7 +420,7 @@ export default function EditDeletePost() {
             color="success"
             focused
             onChange={(event) =>
-              setFormValues({ ...formValues, image: event.target.value })
+              setFormValues({ ...formValues, image: event.target.files[0] })
             }
           />
           <TextField
