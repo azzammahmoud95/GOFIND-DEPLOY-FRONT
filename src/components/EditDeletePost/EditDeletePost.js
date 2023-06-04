@@ -50,19 +50,24 @@ export default function EditDeletePost() {
   const [ locations, setLocations] = useState([])
   const [ selectedLocation, setSelectedLocation] = useState('')
   const [ isLoading, setIsLoading] = useState(true);
+  const [formValues, setFormValues] = useState({
+    id: "",
+    title: "",
+    dateFound: "",
+    categoryId: "",
+    locationId: "",
+    description: "",
+    image: "",
+  });
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleEdit = () => {
-    setOpen(true);
-  };
+  
  
   const handleClose = () => {
     setOpen(false);
   };
-  //! Here i have handle submit dependencies
-  // {handleSubmit, categories, selectedCategories,locations, selectedLocation, setSelectedCategories, setSelectedLocation}
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
@@ -84,6 +89,7 @@ export default function EditDeletePost() {
         console.log(error);
       });
   }, []);
+  
   const handleDelete = (itemId) => {
     axios
       .put(`${process.env.REACT_APP_NODE_ENV}/api/item/isfound/${itemId}`, { isFound: true })
@@ -102,6 +108,30 @@ export default function EditDeletePost() {
         console.log(error);
       });
   };
+  // const handleEdit = (event) => {
+  //   event.preventDefault();
+  //   const id = formValues.id;
+  //   const data = {
+  //     title: formValues.title,
+  //     dateFound:formValues.dateFound,
+  //   categoryId:formValues.categoryId,
+  //   locationId:formValues.locationId,
+  //   description: formValues.description,
+  //   image:formValues.image,
+  //   };
+  //   axios
+  //     .patch(`${process.env.REACT_APP_NODE_ENV}/api/item/edit/${id}`, data)
+  //     .then((response) => {
+  //       const updatedItem = item.map((item) =>
+  //       item._id === id ? response.data : item
+  //       );
+  //       setItem(updatedItem);
+  //       handleClose();
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
    useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
@@ -113,6 +143,20 @@ export default function EditDeletePost() {
         console.log(error);
       });
   },[item]);
+  const handleClickOpen = (id) => {
+    const selectedItem = item.find((item) => item._id === id);
+    setFormValues({
+      id: selectedItem._id,
+      title: selectedItem.title,
+      description: selectedItem.description,
+      image:selectedItem.image,
+      dateFound: selectedItem.dateFound,
+      categoryId:selectedItem.categoryId,
+      locationId: selectedItem.locationId
+    });
+    console.log(selectedItem);
+    setOpen(true);
+  };
   return (
     <Box sx={{ width: '100%' }} >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -164,16 +208,13 @@ export default function EditDeletePost() {
                 style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'9px',
                 textTransform: "capitalize",
                 fontSize:'16px',marginRight:'7px'}}
-                onClick={handleEdit}
-                
-                
+                onClick={() => handleClickOpen(item._id)}
               >
                 Edit
               </Button>
               <Button
                 variant="contained"
                 onClick={() => handleDelete(item._id)}
-                // onClick={() => setOpenAreYouSure(true)}
                 
                 style={{marginLeft:"4px",borderRadius:'9px',backgroundColor:'#28A745',
                 textTransform: "capitalize",
@@ -205,7 +246,7 @@ export default function EditDeletePost() {
                   width={200}
                   height={100}
                 />
-              <Typography variant="h6" >{item.title.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1" >{item.title.substring(0,10)+`..`}</Typography>
               <Typography variant="body1"  className={styles.details}>{item.description.substring(0,10)+`..`}</Typography>
               <Typography variant="body1" className={styles.details}>{item.categoryId.name.substring(0,10)+`..`}</Typography>
               <Typography variant="body1"  className={styles.details}>{item.locationId.name.substring(0,10)+`..`}</Typography>
@@ -215,14 +256,14 @@ export default function EditDeletePost() {
           </Box>
         ))}
       </TabPanel>
-      <Dialog open={open} onClose={handleClose} >
+      <Dialog open={open} onClose={handleClose} style={{padding:'30px'}}>
         <DialogTitle style={{alignSelf:'center',fontWeight:"600",color:"#394452"}}>Edit <span style={{color:'#28A745'}}>Post</span></DialogTitle>
         <DialogContent >
         <Stack
             display="flex"
             justifyContent="space-between"
             flexDirection="row"
-            style={{ width: "100%" }}
+            style={{ width: "100%",marginBottom:'10px',marginTop: '10px' }}
           >
             <TextField
               type="text"
@@ -231,18 +272,24 @@ export default function EditDeletePost() {
               fullWidth
               required
               style={{ width: "49%" }}
-              // value={title}
-              // onChange={(event) => setTitle(event.target.value)}
+              value={formValues.title}
+              onChange={(event) =>
+                setFormValues({ ...formValues, title: event.target.value })
+              }
+            
+              
             />
             <TextField
               type="date"
-              label="Date Founded"
+              label="Date Losted & Founded"
               color="success"
               fullWidth
               required
               style={{ width: "49%",colorScheme:'green' }}
-              // value={dateFound}
-              // onChange={(event) => setDatefound(event.target.value)}
+              value={formValues.dateFound}
+              onChange={(event) =>
+                setFormValues({ ...formValues, dateFound: event.target.value })
+              }
               focused
             />
           </Stack>
@@ -307,6 +354,7 @@ export default function EditDeletePost() {
             fullWidth
             color="success"
             focused
+            
           />
           <TextField
             margin="dense"
@@ -317,13 +365,16 @@ export default function EditDeletePost() {
             color="success"
             multiline
             rows={4}
-          />
+            value={formValues.description}
+              onChange={(event) =>
+                setFormValues({ ...formValues, description: event.target.value })
+              }          />
           
         </DialogContent>
         
-        <DialogActions style={{display:'flex',justifyContent:'space-around', }}>
-          <Button onClick={handleClose}  style={{border:'2px solid #28A745',borderRadius:'9px',color:'#28A745',width:'20%'}}>Cancel</Button>
-          <Button onClick={handleClose} variant="contained"  autoFocus style={{border:'2px solid #28A745',borderRadius:'9px',backgroundColor:'#28A745',width:'20%'}}>
+        <DialogActions style={{display:'flex',justifyContent:'space-around' }}>
+          <Button onClick={handleClose}  style={{border:'2px solid #28A745',borderRadius:'9px',color:'#28A745',width:'25%'}}>Cancel</Button>
+          <Button onClick={handleClose} variant="contained"  autoFocus style={{border:'2px solid #28A745',borderRadius:'9px',backgroundColor:'#28A745',width:'25%'}}>
             Save
           </Button>
         </DialogActions>
