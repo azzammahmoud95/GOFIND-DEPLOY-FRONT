@@ -10,7 +10,7 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import axios from "axios";
 
 const AdminsList = () => {
@@ -21,7 +21,9 @@ const AdminsList = () => {
     name: "",
     email: "",
   });
- 
+  const [openAreYouSure, setOpenAreYouSure] = useState(false);
+  const [selectedLocationId, setSelectedLocationId] = useState("");
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
@@ -31,27 +33,23 @@ const AdminsList = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [locations]);
- 
+  }, []);
+
   const handleClickOpen = (id) => {
-    // Open the edit dialog and populate the form with the data of the selected location
-    const selectedLocation = locations.find((location) => location.id === id);
+    const selectedLocation = locations.find((location) => location._id === id);
     setFormValues({
-      id: selectedLocation.id,
+      id: selectedLocation._id,
       name: selectedLocation.name,
     });
     setOpen(true);
   };
 
   const handleClose = () => {
-    // Close the edit dialog and reset the form values
     setFormValues({
       id: "",
       name: "",
-
     });
     setOpen(false);
-
   };
 
   const handleEdit = (event) => {
@@ -63,9 +61,8 @@ const AdminsList = () => {
     axios
       .put(`${process.env.REACT_APP_NODE_ENV}/api/location/${id}`, data)
       .then((response) => {
-        // If the update was successful, update the list of locations and close the dialog
         const updatedLocations = locations.map((location) =>
-          location.id === id ? response.data : location
+          location._id === id ? response.data : location
         );
         setLocations(updatedLocations);
         handleClose();
@@ -74,14 +71,22 @@ const AdminsList = () => {
         console.log(error);
       });
   };
-  
 
-const handleDelete = (id) => {
+  const handleDelete = (id) => {
+    setSelectedLocationId(id);
+    setOpenAreYouSure(true);
+  };
+
+  const handleCloseAreYouSure = () => {
+    setOpenAreYouSure(false);
+  };
+
+  const handleDeleteConfirm = () => {
     axios
-      .delete(`${process.env.REACT_APP_NODE_ENV}/api/location/${id}`)
+      .delete(`${process.env.REACT_APP_NODE_ENV}/api/location/${selectedLocationId}`)
       .then((response) => {
-        // If the deletion was successful, update the list of locations
-        setLocations(locations.filter((location) => location.id !== id)); // Change location._id to location.id
+        setLocations(locations.filter((location) => location._id !== selectedLocationId));
+        setOpenAreYouSure(false);
       })
       .catch((error) => {
         console.log(error);
@@ -100,122 +105,169 @@ const handleDelete = (id) => {
       }}
     >
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-        Locations 
+        Locations
       </Typography>
       <Stack spacing="10px">
-      {locations.map((location) => (
-      <Box
-        key={location._id}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          py: 2,
-          borderBottom: "1px solid rgba(109, 125, 147, 0.15)",
-        }}
-      >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Box
+        {locations.map((location) => (
+          <Box
+            key={location._id}
             sx={{
-              padding: "16px",
-              borderRadius: "12px",
-              maxWidth: "56px",
-              maxHeight: "56px",
-              bgcolor: "#26a3511a",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              py: 2,
+              borderBottom: "1px solid rgba(109, 125, 147, 0.15)",
             }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box
+                sx={{
+                  padding: "16px",
+                  borderRadius: "12px",
+                  maxWidth: "56px",
+                  maxHeight: "56px",
+                  bgcolor: "#26a3511a",
+                }}
+              >
+                <LocationOnIcon color="success" />
+              </Box>
+              <Stack sx={{ marginLeft: "30px" }}>
+                <Typography sx={{ fontWeight: "bold" }}>{location.name}</Typography>
+                <Typography sx={{ color: "gray", fontWeight: "500", fontSize: "14px" }}>
+                  {location.email}
+                </Typography>
+              </Stack>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "space-between" }}>
+              <Button
+                color="success"
+                variant="outlined"
+                size="small"
+                sx={{
+                  border: "2px solid #28A745",
+                  color: "#28A745",
+                  borderRadius: "7px",
+                  width: "66px",
+                  height: "37px",
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  textTransform: "none",
+                  marginRight: "50px",
+                }}
+                onClick={() => handleClickOpen(location._id)}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="success"
+                sx={{
+                  borderRadius: "6px",
+                  width: "66px",
+                  height: "37px",
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  textTransform: "none",
+                  backgroundColor: "#28A745",
+                }}
+                onClick={() => handleDelete(location._id)}
+              >
+                Delete
+              </Button>
+            </Box>
+          </Box>
+        ))}
+      </Stack>
+      <Dialog open={open} onClose={handleClose}>
+        <form onSubmit={handleEdit}>
+          <DialogTitle style={{ textAlign: "center", fontWeight: "600", color: "#394452" }}>
+            Edit <Box display="inline" style={{ color: "#28A745" }}>Location</Box>
+          </DialogTitle>
+          <DialogContent>
+            <Stack spacing={4} style={{ display: "flex", alignItems: "center", flexDirection: "column", width: "400px" }}>
+              <TextField
+                color="success"
+                required
+                sx={{ marginTop: "5px" }}
+                fullWidth
+                label="Name"
+                variant="outlined"
+                value={formValues.name}
+                onChange={(event) =>
+                  setFormValues({ ...formValues, name: event.target.value })
+                }
+              />
+            </Stack>
+          </DialogContent>
+          <DialogActions style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "20px" }}>
+            <Button
+              variant="outlined"
+              onClick={handleClose}
+              style={{
+                backgroundColor: "#FFF",
+                width: "120px",
+                borderRadius: '10px',
+                color: "#28A745",
+                fontWeight: "600",
+                border: '2px solid #28A745',
+              }}
+              color="success"
             >
-             <LocationOnIcon color="success" />
-                </Box>
-                <Stack sx={{marginLeft:"30px"}}>
-                    <Typography sx={{ fontWeight: "bold"}}>
-                      {location.name}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "gray",
-                        fontWeight: "500",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {location.email}
-                    </Typography>
-                  </Stack>
-        </Box>
-        <Box sx={{ display: "flex",alignItems:"space-between" }}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "#28A745",
+                width: "120px",
+                borderRadius: '10px',
+                color: "#FFF",
+                fontWeight: "600",
+              }}
+              variant="outlined"
+            >
+              Save
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+      <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
+      <DialogTitle style={{ textAlign: "center", fontWeight: "600", color: "#394452" }}>
+          Are You Sure you Want to Delete this<Box display="inline" style={{ color: "#28A745" }}> Location?</Box>
+        </DialogTitle>
+        <DialogActions style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "20px" }}>
           <Button
-          color="success"
             variant="outlined"
-            size="small"
-            sx={{
-              border: "2px solid #28A745",
-              color:'#28A745',
-              borderRadius: "7px",
-              width: "66px",
-              height: "37px",
+            onClick={handleCloseAreYouSure}
+            style={{
+              backgroundColor: "#FFF",
+              width: "120px",
+              borderRadius: '10px',
+              color: "#28A745",
               fontWeight: "600",
-              fontSize: "14px",
-              textTransform: "none",
-              marginRight:"50px"
+              border: '2px solid #28A745',
             }}
-            
-            onClick={() => handleClickOpen(location.id)}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="contained"
             color="success"
-            sx={{
-              borderRadius: "6px",
-              width: "66px",
-              height: "37px",
-              fontWeight: "600",
-              fontSize: "14px",
-              textTransform: "none",
-              backgroundColor: "#28A745"
-            }}
-            onClick={() => handleDelete(location._id)}
           >
-            Delete
+            Cancel
           </Button>
-        </Box>
-      </Box>
-    ))}
-  </Stack>
-  <Dialog open={open} onClose={handleClose}>
-    <form onSubmit={handleEdit}>
-    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Edit <Box display="inline" style={{color:'#28A745'}}>Location</Box></DialogTitle>     
-     <DialogContent >
-        <Stack spacing={4} style={{display:"flex",alignItems:"center",flexDirection:"column",width:"400px"}}>
-          <TextField
-          color="success"
-            required
-            sx={{marginTop:"5px"}}
-            fullWidth
-            label="Name"
+          <Button
+            style={{
+              backgroundColor: "#28A745",
+                width: "120px",
+                borderRadius: "10px",
+                color: "#FFF",
+                fontWeight: "600",
+            }}
             variant="outlined"
-            value={formValues.name}
-            onChange={(event) =>
-              setFormValues({ ...formValues, name: event.target.value })
-            }
-          />
-
-        </Stack>
-      </DialogContent>
-      <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
-        <Button variant="outlined" onClick={handleClose} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
-        <Button type="submit"
-         style={{ backgroundColor: "#28A745",
-          width: "120px",
-          borderRadius: '10px',
-          color:"#FFF",fontWeight:"600" }} variant="outlined">
-          Save
-        </Button>
-      </DialogActions>
-    </form>
-  </Dialog>
-</Box>
-);
+            onClick={handleDeleteConfirm}
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
 };
 
 export default AdminsList;
