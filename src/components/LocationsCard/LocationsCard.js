@@ -33,7 +33,7 @@ const AdminsList = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [locations]);
 
   const handleClickOpen = (id) => {
     const selectedLocation = locations.find((location) => location._id === id);
@@ -59,7 +59,7 @@ const AdminsList = () => {
       name: formValues.name,
     };
     axios
-      .put(`${process.env.REACT_APP_NODE_ENV}/api/location/${id}`, data)
+      .patch(`${process.env.REACT_APP_NODE_ENV}/api/location/${id}`, data)
       .then((response) => {
         const updatedLocations = locations.map((location) =>
           location._id === id ? response.data : location

@@ -32,7 +32,7 @@ const AdminsList = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [categories]);
 
   const handleClickOpen = (id) => {
     const selectedAdmin = categories.find((category) => category._id === id);
@@ -79,15 +79,14 @@ const AdminsList = () => {
     const id = formValues.id;
     const data = {
       name: formValues.name,
-      email: formValues.email,
     };
     axios
-      .patch(`http://localhost:8000/api/auth/category/${id}`, data, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-        },
-      })
+      .patch(`${process.env.REACT_APP_NODE_ENV}/api/category/${id}`, data)
       .then((response) => {
+        const updatedCategories = categories.map((location) =>
+          location._id === id ? response.data : location
+        );
+        setCategories(updatedCategories);
         handleClose();
       })
       .catch((error) => {
