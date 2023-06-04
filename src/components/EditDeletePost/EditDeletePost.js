@@ -118,8 +118,8 @@ export default function EditDeletePost() {
     const data = {
       title: formValues.title,
       dateFound:formValues.dateFound,
-    categoryId:formValues.categoryId,
-    locationId:formValues.locationId,
+    categoryId:selectedCategories,
+    locationId:selectedLocation,
     description: formValues.description,
     image:formValues.image,
     };
