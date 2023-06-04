@@ -50,7 +50,7 @@ height: 100%;
     align-items: center;
 }
 .AboutContent{
-    /* min-height: 39vh; */
+    min-height: 50vh;
     display: flex;
     padding: 100px;
     flex-wrap: wrap;

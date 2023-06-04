@@ -234,7 +234,7 @@ export default function FormAddItem() {
             />
             <TextField
               type="date"
-              label="Date Founded"
+              label="Date Founded/Losted"
               color="success"
               fullWidth
               required
