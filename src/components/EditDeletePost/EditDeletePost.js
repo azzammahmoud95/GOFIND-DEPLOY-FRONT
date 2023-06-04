@@ -44,7 +44,6 @@ TabPanel.propTypes = {
 export default function EditDeletePost() {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
-  const [openAreYouSure, setOpenAreYouSure] = useState(false);
   const [item,setItem] = useState([])
   const [ categories, setCategories] = useState([])
   const [selectedCategories, setSelectedCategories] = useState('')
@@ -58,23 +57,11 @@ export default function EditDeletePost() {
   const handleEdit = () => {
     setOpen(true);
   };
- const handleCloseAreYouSure = () =>{
-    setOpenAreYouSure(false)
-  }
+ 
   const handleClose = () => {
     setOpen(false);
   };
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
-      .then((response) => {
-        setItem(response.data.message);
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },[]); //! Here i have handle submit dependencies
+  //! Here i have handle submit dependencies
   // {handleSubmit, categories, selectedCategories,locations, selectedLocation, setSelectedCategories, setSelectedLocation}
   useEffect(() => {
     axios
@@ -100,19 +87,32 @@ export default function EditDeletePost() {
   const handleDelete = (itemId) => {
     axios
       .put(`${process.env.REACT_APP_NODE_ENV}/api/item/isfound/${itemId}`, { isFound: true })
+      .then((response) => {  
+      })    
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleRevert = (itemId) => {
+    axios
+      .put(`${process.env.REACT_APP_NODE_ENV}/api/item/isfound/${itemId}`, { isFound: false })
       .then((response) => {
-        console.log('h');
-        // Update the item's isFound property to true in the local state
-        setItem((prevItems) =>
-          prevItems.map((item) =>
-            item._id === itemId ? { ...item, isFound: true } : item
-          )
-        );
       })
       .catch((error) => {
         console.log(error);
       });
   };
+   useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
+      .then((response) => {
+        setItem(response.data.message);
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },[item]);
   return (
     <Box sx={{ width: '100%' }} >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -211,7 +211,7 @@ export default function EditDeletePost() {
               <Typography variant="body1"  className={styles.details}>{item.locationId.name.substring(0,10)+`..`}</Typography>
               <Typography variant="body1"  >{item.dateFound.substring(0,10)}</Typography>
 
-            <Box style={{padding:'12px', backgroundColor:'#f7bfbe', borderRadius:'9px',color:'red',fontWeight:'600'}}>Founded</Box>
+            <Button onClick={() => handleRevert(item._id)}  style={{padding:'12px 25px',color:'whitesmoke',backgroundColor:'red', borderRadius:'9px',fontWeight:'700',textTransform: "capitalize"}}>Undo</Button>
           </Box>
         ))}
       </TabPanel>
@@ -329,22 +329,6 @@ export default function EditDeletePost() {
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
-    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Are You Sure you Want to Delete <Box display="inline" style={{color:'#28A745'}}>Post ?</Box></DialogTitle>     
-     
-      <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
-        <Button variant="outlined" onClick={handleCloseAreYouSure} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
-        <Button type="submit"
-         style={{ backgroundColor: "#28A745",
-          width: "120px",
-          borderRadius: '10px',
-          color:"#FFF",fontWeight:"600" }} variant="outlined"
-          >
-          Yes
-        </Button>
-      </DialogActions>
-    
-  </Dialog>
     </Box>
   );
 }
