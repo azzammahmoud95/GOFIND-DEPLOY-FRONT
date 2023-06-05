@@ -13,12 +13,10 @@ import {
   Dialog,
 } from "@mui/material";
 import Cookies from "js-cookie";
-import Loader from "../../components/Loader/Loader";
 
 
 export default function FormAddItem() {
   const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState({});
@@ -77,7 +75,6 @@ export default function FormAddItem() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setIsLoading(true);
       const fd = new FormData();
       fd.append("image", image, image.name);
       console.log(fd);
@@ -115,7 +112,6 @@ export default function FormAddItem() {
           }
         }
       );
-      setIsLoading(false);
       setTitle("");
       setImage(null);
       setSelectedCategories("");
@@ -367,7 +363,7 @@ export default function FormAddItem() {
             </Button>
           </Stack>
         </form>
-        {isLoading && <Loader />}
+        
       </Dialog>
     </>
   );
