@@ -112,29 +112,50 @@ export default function EditDeletePost() {
         console.log(error);
       });
   };
-  const handleEdit = (event) => {
+  const handleEdit = async (event) => {
     event.preventDefault();
-    
-    const id = formValues.id;
-    const data = {
-      title: formValues.title,
-      dateFound:formValues.dateFound,
-    categoryId:selectedCategories,
-    locationId:selectedLocation,
-    description: formValues.description,
-    image:formValues.image,
-    };
-    axios
-      .patch(`${process.env.REACT_APP_NODE_ENV}/api/item/edit/${id}`, data)
-      .then((response) => {
-        
-        console.log(item)
-        handleClose();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  
+    try {
+      const id = formValues.id;
+  
+      let imageUrl = formValues.image; // Initialize imageUrl with existing image URL
+  
+      // Check if formValues.image is a Blob (file)
+      if (formValues.image instanceof Blob) {
+        // Upload the updated image to imgbb
+        const fd = new FormData();
+        fd.append("image", formValues.image, formValues.image.name);
+        const imgbbResponse = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB}`,
+          fd
+        );
+        imageUrl = imgbbResponse.data.data.display_url; // Update imageUrl with the new image URL
+      }
+  
+      const data = {
+        title: formValues.title,
+        dateFound: formValues.dateFound,
+        categoryId: selectedCategories,
+        locationId: selectedLocation,
+        description: formValues.description,
+        image: imageUrl, // Use the updated image URL
+      };
+  
+      // Send the updated data to the server
+      const response = await axios.patch(
+        `${process.env.REACT_APP_NODE_ENV}/api/item/edit/${id}`,
+        data
+      );
+  
+      console.log(response);
+      handleClose();
+    } catch (error) {
+      console.log(error);
+      // Handle the error here, show an error message, etc.
+    }
   };
+  
+  
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
