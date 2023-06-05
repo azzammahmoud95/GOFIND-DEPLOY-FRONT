@@ -6,22 +6,16 @@ import {
   Button,
   Dialog,
   DialogTitle,
-  DialogContent,
   DialogActions,
-  TextField,
 } from "@mui/material";
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import axios from "axios";
 
 const AdminsList = () => {
   const [admins, setAdmins] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [formValues, setFormValues] = useState({
-    id: "",
-    name: "",
-    email: "",
-  });
- 
+
+   const [openAreYouSure, setOpenAreYouSure] = useState(false);
+const [selectedUserId, setSelectedUserId] = useState("")
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/user`)
@@ -31,72 +25,27 @@ const AdminsList = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
- 
-  const handleClickOpen = (id) => {
-    // Open the edit dialog and populate the form with the data of the selected admin
-    const selectedAdmin = admins.find((admin) => admin.id === id);
-    setFormValues({
-      id: selectedAdmin.id,
-      name: selectedAdmin.name,
-      email: selectedAdmin.email,
-    });
-    setOpen(true);
-    
+  }, [admins]);
+  const handleDelete = (id) => {
+    setSelectedUserId(id);
+    setOpenAreYouSure(true);
   };
 
-  const handleClose = () => {
-    // Close the edit dialog and reset the form values
-    setFormValues({
-      id: "",
-      name: "",
-      email: "",
-    });
-    setOpen(false);
+  const handleCloseAreYouSure = () =>{
+    setOpenAreYouSure(false)
+  }
 
+  const handleDeleteConfirm = () => {
+    axios
+      .delete(`${process.env.REACT_APP_NODE_ENV}/api/user/delete/${selectedUserId}`)
+      .then((response) => {
+        setOpenAreYouSure(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-//   const handleEdit = (event) => {
-//   event.preventDefault();
-//   const id = formValues.id;
-//   const data = {
-//     name: formValues.name,
-//     email: formValues.email,
-//   };
-//   axios
-//     .patch(`http://localhost:8000/api/auth/admin/${id}`, data, {
-//       headers: {
-//         Authorization: "Bearer " + localStorage.getItem("access_token"),
-//       },
-//     })
-//     .then((response) => {
-//       // If the update was successful, update the list of admins and close the dialog
-//       // const updatedAdmins = updatedAdmins.map((admin) =>
-//       //   admin.id === id ? response.data : admin
-//       // );
-//       // setAdmins(updatedAdmins);
-//       handleClose();
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
-
-//   const handleDelete = (id) => {
-//     axios
-//       .delete(`http://localhost:8000/api/user/${id}`, {
-//         headers: {
-//           Authorization: "Bearer " + localStorage.getItem("access_token"),
-//         },
-//       })
-//       .then((response) => {
-//         // If the deletion was successful, update the list of admins
-//         setAdmins(admins.filter((admin) => admin.id !== id));
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
 
   return (
     <Box
@@ -152,7 +101,7 @@ const AdminsList = () => {
                   </Stack>
         </Box>
         <Box sx={{ display: "flex",alignItems:"space-between" }}>
-          <Button
+          {/* <Button
           color="success"
             variant="outlined"
             size="small"
@@ -171,7 +120,7 @@ const AdminsList = () => {
             onClick={() => handleClickOpen(admin.id)}
           >
             Edit
-          </Button>
+          </Button> */}
           <Button
             variant="contained"
             color="success"
@@ -184,7 +133,7 @@ const AdminsList = () => {
               textTransform: "none",
               backgroundColor: "#28A745"
             }}
-            // onClick={() => handleDelete(admin.id)}
+            onClick={() => handleDelete(admin._id)}
           >
             Delete
           </Button>
@@ -192,47 +141,41 @@ const AdminsList = () => {
       </Box>
     ))}
   </Stack>
-  <Dialog open={open} onClose={handleClose}>
-    <form >
-    {/* onSubmit={handleEdit} */}
-    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Edit <Box display="inline" style={{color:'#026FC2'}}>Admin</Box></DialogTitle>     
-     <DialogContent >
-        <Stack spacing={4} style={{display:"flex",alignItems:"center",flexDirection:"column",width:"400px"}}>
-          <TextField
-            required
-            sx={{marginTop:"5px"}}
-            fullWidth
-            label="Name"
+  <Dialog open={openAreYouSure} onClose={handleCloseAreYouSure}>
+      <DialogTitle style={{ textAlign: "center", fontWeight: "600", color: "#394452" }}>
+          Are You Sure you Want to Delete this<Box display="inline" style={{ color: "#28A745" }}> Admin/User?</Box>
+        </DialogTitle>
+        <DialogActions style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "20px" }}>
+          <Button
             variant="outlined"
-            value={formValues.name}
-            onChange={(event) =>
-              setFormValues({ ...formValues, name: event.target.value })
-            }
-          />
-          <TextField
-            required
-            fullWidth
-            label="Email"
+            onClick={handleCloseAreYouSure}
+            style={{
+              backgroundColor: "#FFF",
+              width: "120px",
+              borderRadius: '10px',
+              color: "#28A745",
+              fontWeight: "600",
+              border: '2px solid #28A745',
+            }}
+            color="success"
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              backgroundColor: "#28A745",
+                width: "120px",
+                borderRadius: "10px",
+                color: "#FFF",
+                fontWeight: "600",
+            }}
             variant="outlined"
-            value={formValues.email}
-            onChange={(event) =>
-              setFormValues({ ...formValues, email: event.target.value })
-            }
-          />
-        </Stack>
-      </DialogContent>
-      <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
-        <Button variant="outlined" onClick={handleClose} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#026FC2",fontWeight:"600" }}>Cancel</Button>
-        <Button type="submit"
-         style={{ backgroundColor: "#026FC2",
-          width: "120px",
-          borderRadius: '10px',
-          color:"#FFF",fontWeight:"600" }} variant="outlined">
-          Save
-        </Button>
-      </DialogActions>
-    </form>
-  </Dialog>
+            onClick={handleDeleteConfirm}
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
 </Box>
 );
 };
