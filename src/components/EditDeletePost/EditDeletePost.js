@@ -57,6 +57,7 @@ export default function EditDeletePost() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [ isLoadingEdit, setIsLoadingEdit] = useState(false)
   const [formValues, setFormValues] = useState({
     id: "",
     title: "",
@@ -114,7 +115,7 @@ export default function EditDeletePost() {
   };
   const handleEdit = async (event) => {
     event.preventDefault();
-  
+    setIsLoadingEdit(true)
     try {
       const id = formValues.id;
   
@@ -142,12 +143,11 @@ export default function EditDeletePost() {
       };
   
       // Send the updated data to the server
-      const response = await axios.patch(
+       await axios.patch(
         `${process.env.REACT_APP_NODE_ENV}/api/item/edit/${id}`,
         data
       );
-  
-      console.log(response);
+      setIsLoadingEdit(false)
       handleClose();
     } catch (error) {
       console.log(error);
@@ -490,6 +490,7 @@ export default function EditDeletePost() {
         </DialogActions>
         </form>
       </Dialog>
+      {isLoadingEdit && <Loader />}
     </Box>
   );
 }

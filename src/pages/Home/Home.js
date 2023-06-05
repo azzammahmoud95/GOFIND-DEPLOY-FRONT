@@ -83,7 +83,7 @@ export default function Home() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [items]);
 
   const navigate = useNavigate();
   const username = Cookies.get("username");
@@ -263,7 +263,7 @@ export default function Home() {
                 borderTopLeftRadius: "10px",
                 borderBottomLeftRadius: "10px",
                 backgroundColor: "white",
-                width: "60%",
+                width: "62%",
                 
               }}
               renderInput={(params) => (

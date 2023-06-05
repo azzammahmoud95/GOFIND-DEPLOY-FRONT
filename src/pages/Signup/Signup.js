@@ -7,10 +7,11 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
-
+import Loader from "../../components/Loader/Loader";
 export default function Signup() {
   console.log(process.env.REACT_APP_NODE_ENV)
   const [showPassword, setShowPassword] = useState(false);
+  const [ isLoading ,setIsLoading] = useState(false)
   const [formValues, setFormValues] = useState({
     username: "",
     email: "",
@@ -31,7 +32,7 @@ export default function Signup() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setIsLoading(true)
     // Perform validation logic here
     let hasErrors = false;
 
@@ -89,6 +90,7 @@ export default function Signup() {
 
     axios.post(`${process.env.REACT_APP_NODE_ENV}/api/user/register`, formData)
   .then(response => {
+    setIsLoading(false)
     navigate('/login');
   })
   .catch(err => {
@@ -220,6 +222,7 @@ export default function Signup() {
             </Button>
           </form>
         </div>
+        {isLoading && <Loader />}
       </div>
     );
   }
