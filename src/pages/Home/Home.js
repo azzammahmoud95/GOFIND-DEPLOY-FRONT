@@ -365,13 +365,11 @@ export default function Home() {
               backgroundColor:
                 selectedLocation === null ? "#28A745" : "transparent",
               borderRadius: "10px",
-              // width: "80px",
               color: selectedLocation === null ? "white" : "#28A745",
               marginLeft: "10px",
               textTransform: "capitalize",
               fontSize: "12px",
               marginTop: "10px",
-              marginBottom:'15px',
               border: selectedLocation === null ? "none" : "2px solid #28A745",
             }}
             onClick={() => setSelectedLocation(null)}
@@ -390,7 +388,6 @@ export default function Home() {
                 textTransform: "capitalize",
                 fontSize: "12px",
                 marginTop: "10px",
-                marginBottom:'15px',
                 border:
                 selectedLocation === category ? "none" : "2px solid #28A745",
               }}
